@@ -21,14 +21,14 @@
         </mat-card-content>
         <mat-card-actions>
           <button mat-button>Like</button>
-          <button mat-button (click)="startCommenting(post)">Comment</button>
-          <button mat-button *ngIf="isAdmin" (click)="deletePost(post)">Delete</button>
+          <button mat-button (click)="startCommenting(post)">Komment írás</button>
+          <button mat-button *ngIf="isAdmin" (click)="deletePost(post)">Törlés</button>
           <button mat-button>Share</button>
         </mat-card-actions>
         <mat-card-footer>
           <p>Created At: {{ post.createdAt | date: 'y MMM d, HH:mm' }}</p>
           <textarea *ngIf="post.isCommenting" [(ngModel)]="post.commentText" placeholder="Write a comment"></textarea>
-          <button *ngIf="post.isCommenting" mat-button (click)="submitComment(post)">Submit</button>
+          <button *ngIf="post.isCommenting" mat-button (click)="submitComment(post)">Oké</button>
         </mat-card-footer>
       </mat-card>
     </div>
