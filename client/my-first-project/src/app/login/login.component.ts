@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { User } from '../shared/model/User';
 
 @Component({
   selector: 'app-login',
@@ -30,8 +31,10 @@ export class LoginComponent {
             if (data) {
               // navigation
               console.log(data);
+              localStorage.setItem('user', data as string);
+              this.authService.setCurrentUser(data as string);
               this.isLoading = false;
-              this.router.navigateByUrl('/user-management');
+              this.router.navigateByUrl('/home');
             }
           }, error: (err) => {
             console.log(err);

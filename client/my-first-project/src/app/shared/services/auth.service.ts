@@ -1,13 +1,37 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/User';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  currentLoggedInUser: string | null = null;
+
+  private currentUserSubject: BehaviorSubject<User | null>;
+  public currentUser: Observable<User | null>;
+
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User | null>(null);
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): User | null {
+    return this.currentUserSubject.value;
+  }
+
+  setCurrentUser(user: string) {
+    console.log("Set user: ", user);
+    this.currentLoggedInUser = user;
+  }
+
+
+  getCurrentLoggedInUser() {
+    return this.currentLoggedInUser;
+  }
+  
 
   // login
   login(email: string, password: string) {
@@ -20,7 +44,12 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/login', body, {headers: headers, withCredentials: true});
+    return this.http.post('http://localhost:5000/app/login', body, {headers: headers, withCredentials: true})
+    .pipe(tap(user => {
+      if (user) {
+        this.currentUserSubject.next(user as User);
+      }
+    }));
   }
 
   register(user: User) {
@@ -37,6 +66,21 @@ export class AuthService {
     });
 
     return this.http.post('http://localhost:5000/app/register', body, {headers: headers});
+  }
+
+  registerFriend(email: string) {
+    const body = new URLSearchParams();
+
+    //if (this.currentUserValue) {
+      body.set('email', email);
+      body.set('user', this.currentLoggedInUser as string);
+      console.log('Logged in user: ', this.currentLoggedInUser);
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      return this.http.post('http://localhost:5000/app/register-friend', body, { headers: headers, withCredentials: true });
+    //}
   }
 
   logout() {

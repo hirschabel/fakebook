@@ -13,6 +13,10 @@ export class UserService {
     return this.http.get<User[]>('http://localhost:5000/app/getAllUsers', {withCredentials: true});
   }
 
+  getAllFriends() {
+    return this.http.get<User[]>('http://localhost:5000/app/getAllFriends', {withCredentials: true});
+  }
+
   delete(id: string) {
     return this.http.delete('http://localhost:5000/app/deleteUser?id=' + id, {withCredentials: true});
   }

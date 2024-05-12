@@ -18,8 +18,8 @@ export const configurePassport = (passport: PassportStatic): PassportStatic => {
         const query = User.findOne({ email: username });
         query.then(user => {
             if (user) {
-                user.comparePassword(password, (error, _) => {
-                    if (error) {
+                user.comparePassword(password, (error, isMatch) => {
+                    if (error || !isMatch) {
                         done('Incorrect username or password.');
                     } else {
                         done(null, user._id);

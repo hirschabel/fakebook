@@ -1,0 +1,36 @@
+<div class="friends">
+  <div class="add-friend">
+    <form (ngSubmit)="addFriend()">
+      <div>
+        <label for="friendEmail">Email cím:</label>
+      </div>
+      <div>
+        <input id="friendEmail" type="email" [(ngModel)]="friendEmail" name="friendEmail"
+               placeholder="Enter friend's email">
+      </div>
+      <div>
+        <button type="submit">Add Friend</button>
+      </div>
+    </form>
+    <button type="submit" (click)="navigate('/home')">Vissza a főoldalra</button>
+  </div>
+  <div class="friend-list">
+    <div *ngIf="friends && friends.length > 0; else noPostsTemplate">
+      <h2>Friends</h2>
+      <div *ngFor="let friend of friends">
+
+        <div>
+          <p>Email: {{ friend.email }}</p>
+          <p>Nickname: {{ friend.nickname }}</p>
+          <p>Name: {{ friend.name }}</p>
+          <p>Address: {{ friend.address }}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <ng-template #noPostsTemplate>
+      <p>A barátlista üres.</p>
+    </ng-template>
+  </div>
+</div>

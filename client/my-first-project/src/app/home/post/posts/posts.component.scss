@@ -1,0 +1,57 @@
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.post-card {
+  width: 100%;
+  max-width: 400px; /* Adjust max-width as needed */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-card mat-card-header,
+.post-card mat-card-content,
+.post-card mat-card-actions,
+.post-card mat-card-footer {
+  padding: 16px;
+}
+
+.post-card mat-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.post-card mat-card-subtitle {
+  font-size: 1rem;
+  color: #888;
+}
+
+.post-card mat-card-content p {
+  font-size: 1rem;
+}
+
+.post-card mat-card-footer p {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.post-card mat-card-footer textarea {
+  width: calc(100% - 32px); /* Subtract padding */
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.post-card mat-card-footer button {
+  margin-top: 8px;
+}
+
+.no-posts-message {
+  text-align: center;
+  margin-top: 20px;
+  color: #888;
+}

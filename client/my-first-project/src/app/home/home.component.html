@@ -1,0 +1,29 @@
+<!-- IS ADMIN? -->
+<div class="home-screen">
+  <div class="sidebar">
+    <button (click)="navigate('/friends')">Barátlista</button>
+    <div class="create-post">
+      <form class="create-post" [formGroup]="createPostForm" (ngSubmit)="createPost()">
+        <div>
+          <label for="postName">Poszt név:</label>
+        </div>
+        <div>
+          <input id="postName" required formControlName="postHeader" type="text" name="postName"
+                 placeholder="Poszt fejléc">
+        </div>
+        <div>
+          <label for="postText">Poszt szöveg:</label>
+        </div>
+        <div>
+          <input id="postText" required type="text" formControlName="postText" name="postText"
+                 placeholder="Poszt szövege">
+        </div>
+        <div>
+          <button type="submit">Poszt!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <app-posts></app-posts>
+</div>

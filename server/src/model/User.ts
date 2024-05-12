@@ -3,12 +3,13 @@ import bcrypt from 'bcrypt';
 
 const SALT_FACTOR = 10;
 
-interface IUser extends Document {
+export interface IUser extends Document {
     email: string;
     name?: string;
     address?: string;
     nickname?: string;
     password: string;
+    role: 'admin' | 'user';
     comparePassword: (candidatePassword: string, callback: (error: Error | null, isMatch: boolean) => void) => void;
 }
 
@@ -50,21 +51,3 @@ UserSchema.methods.comparePassword = function(candidatePassword: string, callbac
 }
 
 export const User: Model<IUser> = mongoose.model<IUser>('User', UserSchema);
-
-/* THIS - JS - runtime binding
-// explanation for this:
-const test = {
-    prop: 1,
-    func: () => {
-      return test.prop;
-    },
-};
-
-const test = {
-    prop: 1,
-    func: function() {
-        return this.prop;
-    },
-};
-
-// Expected output: 1 */
