@@ -10,7 +10,7 @@ import cors from 'cors';
 
 const app = express();
 const port = 5000;
-const dbUrl = 'mongodb://localhost:6000/my_db';
+const dbUrl = 'mongodb://localhost:6000/fakebook';
 
 // mongodb connection
 mongoose.connect(dbUrl).then((_) => {

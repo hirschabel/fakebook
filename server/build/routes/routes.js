@@ -163,7 +163,6 @@ const configureRoutes = (passport, router) => {
                 description,
                 profilePicture,
             };
-            console.log(req.body);
             UserProfile_1.UserProfile.findByIdAndUpdate(userProfileId, updatedUserProfileData, { new: true })
                 .then(updatedUserProfile => {
                 if (updatedUserProfile) {
