@@ -1,11 +1,11 @@
 <h1 align="center">Fakebook<br><span style="font-size: 80%"><i>Programrendszerek fejlesztése</i></span></h1>
 
-### Verziók:
+### Verziók
 * Node: v20.13.1
 * npm: 10.5.2
 * Angular CLI: 17.3.1
 
-### Indítás:
+### Indítás
 1. Szerver és kliens mappában `npm install` kiadása
 2. Adatbázis
     * Indítás: Szerver mappában
@@ -31,3 +31,10 @@ Még nem implementált:
 * Élő üzenetküldés
 * Csoportok
 * Reakciók
+
+### Képek az alkalmazásról
+
+![Bejelentkezés](https://github.com/hirschabel/fakebook/blob/main/pictures/Login.png?raw=true)
+![Főoldal](https://github.com/hirschabel/fakebook/blob/main/pictures/Homepage.png?raw=true)
+![Barátlista](https://github.com/hirschabel/fakebook/blob/main/pictures/Friendlist.png?raw=true)
+![Profil](https://github.com/hirschabel/fakebook/blob/main/pictures/Profile.png?raw=true)
