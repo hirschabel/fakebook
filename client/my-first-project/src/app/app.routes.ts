@@ -8,5 +8,6 @@ export const routes: Routes = [
     { path: 'user-management', loadComponent: () => import('./user-management/user-management.component').then((c) => c.UserManagementComponent), canActivate: [authGuard] },
     { path: 'home',  loadComponent: () => import('./home/home.component').then((c) => c.HomeComponent), canActivate: [authGuard] },
     { path: 'friends',  loadComponent: () => import('./friends/friends.component').then((c) => c.FriendsComponent), canActivate: [authGuard] },
+    { path: 'user-profile',  loadComponent: () => import('./user-profile/user-profile.component').then((c) => c.UserProfileComponent), canActivate: [authGuard] },
     { path: '**', redirectTo: 'home' }
 ];

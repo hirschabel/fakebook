@@ -27,4 +27,8 @@ export class CommentService {
     return this.http.get<CommentForPost[]>(`http://localhost:5000/app/getAllComments?postId=${postId}`, {withCredentials: true});
   }
 
+  delete(id: string) {
+    return this.http.delete('http://localhost:5000/app/deleteComment?id=' + id, {withCredentials: true});
+  }
+
 }

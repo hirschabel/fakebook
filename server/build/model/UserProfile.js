@@ -23,20 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Post = void 0;
+exports.UserProfile = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const PostSchema = new mongoose_1.default.Schema({
-    author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
-    postHeader: { type: String, required: true },
-    postText: { type: String, required: true },
-    owner: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now }
+const UserProfileSchema = new mongoose_1.default.Schema({
+    owner: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    description: { type: String, required: false },
+    profilePicture: { type: Buffer, requred: false }
 });
-// Middleware to set createdAt field before saving
-PostSchema.pre('save', function (next) {
-    if (!this.createdAt) {
-        this.createdAt = new Date();
-    }
-    next();
-});
-exports.Post = mongoose_1.default.model('Post', PostSchema);
+exports.UserProfile = mongoose_1.default.model('UserProfile', UserProfileSchema);

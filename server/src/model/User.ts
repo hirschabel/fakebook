@@ -18,7 +18,8 @@ const UserSchema: Schema<IUser> = new mongoose.Schema({
     name: { type: String, required: false },
     address: { type: String, required: false },
     nickname: { type: String, required: false },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    role: { type: String, default: 'user' }
 });
 
 // hook

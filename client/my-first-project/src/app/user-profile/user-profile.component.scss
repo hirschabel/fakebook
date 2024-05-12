@@ -1,0 +1,40 @@
+.profile-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.profile-form {
+  margin-bottom: 20px;
+}
+
+.description-field, .picture-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.profile-form mat-form-field {
+  width: 100%;
+}
+
+.preview-image {
+  max-width: 200px;
+  margin-top: 10px;
+}
+
+.back-button {
+  background-color: #4267b2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #3b5998;
+}

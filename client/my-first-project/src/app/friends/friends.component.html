@@ -6,30 +6,30 @@
       </div>
       <div>
         <input id="friendEmail" type="email" [(ngModel)]="friendEmail" name="friendEmail"
-               placeholder="Enter friend's email">
+               placeholder="Barát email címe">
       </div>
-      <div>
-        <button type="submit">Add Friend</button>
+      <div class="fooldalra">
+        <button type="submit">Barát hozzáadása</button>
       </div>
     </form>
-    <button type="submit" (click)="navigate('/home')">Vissza a főoldalra</button>
+    <div class="fooldalra">
+      <button type="submit" (click)="navigate('/home')">Vissza a főoldalra</button>
+    </div>
   </div>
   <div class="friend-list">
-    <div *ngIf="friends && friends.length > 0; else noPostsTemplate">
-      <h2>Friends</h2>
-      <div *ngFor="let friend of friends">
-
-        <div>
-          <p>Email: {{ friend.email }}</p>
-          <p>Nickname: {{ friend.nickname }}</p>
-          <p>Name: {{ friend.name }}</p>
-          <p>Address: {{ friend.address }}</p>
-        </div>
-
-      </div>
+    <div *ngIf="friends && friends.length > 0; else noFriendsTemplate">
+      <h2>Barátok</h2>
+      <mat-card *ngFor="let friend of friends" class="friend-card">
+        <mat-card-content class="friend-info">
+          <p>Email cím: {{ friend.email }}</p>
+          <p>Felhasználónév: {{ friend.nickname }}</p>
+          <p>Teljes név: {{ friend.name }}</p>
+          <p>Lakcím: {{ friend.address }}</p>
+        </mat-card-content>
+      </mat-card>
     </div>
 
-    <ng-template #noPostsTemplate>
+    <ng-template #noFriendsTemplate>
       <p>A barátlista üres.</p>
     </ng-template>
   </div>

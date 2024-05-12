@@ -41,6 +41,7 @@ export class HomeComponent {
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private postService: PostService,
     private formBuilder: FormBuilder
   ) { }
@@ -71,4 +72,15 @@ export class HomeComponent {
     this.router.navigateByUrl(to);
   }
 
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: (data) => {
+        console.log(data);
+        this.router.navigateByUrl('/login');
+      }, error: (err) => {
+        console.log(err);
+      }
+    });
+  }
 }

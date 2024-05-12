@@ -31,7 +31,7 @@ export class AuthService {
   getCurrentLoggedInUser() {
     return this.currentLoggedInUser;
   }
-  
+
 
   // login
   login(email: string, password: string) {
@@ -89,5 +89,9 @@ export class AuthService {
 
   checkAuth() {
     return this.http.get<boolean>('http://localhost:5000/app/checkAuth', {withCredentials: true});
+  }
+
+  isAdmin() {
+    return this.http.get<boolean>('http://localhost:5000/app/isAdmin', {withCredentials: true});
   }
 }

@@ -1,4 +1,5 @@
 <div class="login-container">
+  <h1>Fakebook</h1>
     <form class="login-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <input formControlName="email" type="email" placeholder="Email" required [ngClass]="{'invalid-input': signupForm.get('email')?.errors}" />
         <div *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">

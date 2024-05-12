@@ -28,4 +28,8 @@ export class PostService {
   getAll() {
     return this.http.get<Post[]>('http://localhost:5000/app/getAllPosts', {withCredentials: true});
   }
+
+  delete(id: string) {
+    return this.http.delete('http://localhost:5000/app/deletePost?id=' + id, {withCredentials: true});
+  }
 }

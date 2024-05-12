@@ -8,5 +8,6 @@ export interface Post {
   createdAt: Date;
   isCommenting: boolean;
   commentText: string;
+  owner: string;
   comments: CommentForPost[];
 }

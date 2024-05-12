@@ -13,6 +13,7 @@ exports.configureRoutes = void 0;
 const main_class_1 = require("../main-class");
 const User_1 = require("../model/User");
 const Friendship_1 = require("../model/Friendship");
+const UserProfile_1 = require("../model/UserProfile");
 const Post_1 = require("../model/Post");
 const Comment_1 = require("../model/Comment");
 const configureRoutes = (passport, router) => {
@@ -57,9 +58,16 @@ const configureRoutes = (passport, router) => {
             return res.status(400).json({ message: 'Email already exists' });
         }
         const user = new User_1.User({ email: email, password: password, name: name, address: address, nickname: nickname, role: role });
-        user.save().then(data => {
+        user.save().then((data) => __awaiter(void 0, void 0, void 0, function* () {
+            // Create a blank user profile for the new user
+            const userProfile = new UserProfile_1.UserProfile({
+                owner: data._id,
+                description: '',
+                profilePicture: null
+            });
+            yield userProfile.save();
             res.status(200).send(data);
-        }).catch(error => {
+        })).catch(error => {
             res.status(500).send(error);
         });
     }));
@@ -108,15 +116,20 @@ const configureRoutes = (passport, router) => {
             res.status(500).send('User is not logged in.');
         }
     }));
-    router.post('/createPost', (req, res) => {
+    router.post('/createPost', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (req.isAuthenticated()) {
             const userId = req.user;
             const postHeader = req.body.postHeader;
             const postText = req.body.postText;
+            const user = yield User_1.User.findById(userId);
+            if (!user) {
+                return res.status(500).send('User not found.');
+            }
             const post = new Post_1.Post({
                 author: userId,
                 postHeader: postHeader,
-                postText: postText
+                postText: postText,
+                owner: user.nickname
             });
             post.save().then(data => {
                 res.status(200).send(data);
@@ -126,6 +139,47 @@ const configureRoutes = (passport, router) => {
         }
         else {
             res.status(500).send('User is not logged in.');
+        }
+    }));
+    router.get('/getUserProfile', (req, res) => {
+        if (req.isAuthenticated()) {
+            const query = UserProfile_1.UserProfile.findOne({ owner: req.user });
+            query.then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            });
+        }
+        else {
+            res.status(500).send('User is not logged in.');
+        }
+    });
+    router.post('/updateUserProfile', (req, res) => {
+        if (req.isAuthenticated()) {
+            const { userProfileId, description, profilePicture } = req.body;
+            // Assuming req.body contains the updated user profile data
+            const updatedUserProfileData = {
+                description,
+                profilePicture,
+            };
+            console.log(req.body);
+            UserProfile_1.UserProfile.findByIdAndUpdate(userProfileId, updatedUserProfileData, { new: true })
+                .then(updatedUserProfile => {
+                if (updatedUserProfile) {
+                    res.status(200).json(updatedUserProfile);
+                }
+                else {
+                    res.status(404).send('User profile not found.');
+                }
+            })
+                .catch(error => {
+                console.error(error);
+                res.status(500).send('Internal server error.');
+            });
+        }
+        else {
+            res.status(401).send('User is not authenticated.');
         }
     });
     router.get('/getAllPosts', (req, res) => {
@@ -180,17 +234,7 @@ const configureRoutes = (passport, router) => {
             });
             queryFriendships.then(friendships => {
                 const friendIds = friendships.map(friendship => {
-                    console.log(friendship, " --- ", req.user);
-                    console.log(friendship.user1 === req.user ? friendship.user2 : friendship.user1);
-                    if (String(friendship.user1) == String(req.user)) {
-                        console.log('==');
-                        return friendship.user2;
-                    }
-                    else {
-                        console.log('!=');
-                        return friendship.user1;
-                    }
-                    return friendship.user1 === req.user ? friendship.user2 : friendship.user1;
+                    return String(friendship.user1) == String(req.user) ? friendship.user2 : friendship.user1;
                 });
                 const queryUsers = User_1.User.find({
                     _id: { $in: friendIds }
@@ -232,10 +276,55 @@ const configureRoutes = (passport, router) => {
             res.status(500).send(false);
         }
     });
+    router.get('/isAdmin', (req, res) => {
+        if (req.isAuthenticated()) {
+            const query = User_1.User.findById(req.user);
+            query.then(data => {
+                console.log(data);
+                res.status(200).send(data && data.role === 'admin');
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            });
+        }
+        else {
+            res.status(500).send(false);
+        }
+    });
     router.delete('/deleteUser', (req, res) => {
         if (req.isAuthenticated()) {
             const id = req.query.id;
             const query = User_1.User.deleteOne({ _id: id });
+            query.then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            });
+        }
+        else {
+            res.status(500).send('User is not logged in.');
+        }
+    });
+    router.delete('/deletePost', (req, res) => {
+        if (req.isAuthenticated()) {
+            const id = req.query.id;
+            const query = Post_1.Post.deleteOne({ _id: id });
+            query.then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            });
+        }
+        else {
+            res.status(500).send('User is not logged in.');
+        }
+    });
+    router.delete('/deleteComment', (req, res) => {
+        if (req.isAuthenticated()) {
+            const id = req.query.id;
+            const query = Comment_1.Comment.deleteOne({ _id: id });
             query.then(data => {
                 res.status(200).send(data);
             }).catch(error => {

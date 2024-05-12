@@ -15,6 +15,9 @@ import {
   MatCardSubtitle, MatCardTitle
 } from "@angular/material/card";
 import {CommentService} from "../../../shared/services/comment.service";
+import {DialogComponent} from "../../../shared/components/dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CommentForPost} from "../../../shared/model/Comment";
 
 @Component({
   selector: 'app-posts',
@@ -40,10 +43,13 @@ export class PostsComponent {
 
   posts!: Post[];
   columns = ['postHeader', 'postText', 'author', 'createdAt'];
+  isAdmin: boolean = false;
 
   constructor(
     private postService: PostService,
+    private authService: AuthService,
     private commentService: CommentService,
+    private dialog: MatDialog,
     ) { }
 
   ngOnInit() {
@@ -68,11 +74,66 @@ export class PostsComponent {
         console.log(err);
       }
     });
+    this.authService.isAdmin().subscribe({
+      next: (data) => {
+        this.isAdmin = data;
+        console.log('isAdmin', data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   startCommenting(post: Post) {
     // Set the post's isCommenting property to true to show the comment textarea
     post.isCommenting = true;
+  }
+
+  deletePost(post: Post) {
+    // Set the post's isCommenting property to true to show the comment textarea
+    const dialogRef = this.dialog.open(DialogComponent);
+
+    dialogRef.afterClosed().subscribe({
+      next: (data) => {
+        if (data) {
+          // user deletion
+          console.log(data);
+          this.postService.delete((post as any)._id).subscribe({
+            next: (data) => {
+              console.log(data);
+            }, error: (err) => {
+              console.log(err);
+            }
+          });
+        }
+      }, error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  deleteComment(comment: CommentForPost) {
+    // Set the post's isCommenting property to true to show the comment textarea
+    const dialogRef = this.dialog.open(DialogComponent);
+
+    dialogRef.afterClosed().subscribe({
+      next: (data) => {
+        if (data) {
+          // user deletion
+          console.log(data);
+          this.commentService.delete((comment as any)._id).subscribe({
+            next: (data) => {
+              console.log(data);
+            }, error: (err) => {
+              console.log(err);
+            }
+          });
+        }
+      }, error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   submitComment(post: Post) {

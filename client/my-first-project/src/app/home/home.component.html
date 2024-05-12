@@ -2,10 +2,14 @@
 <div class="home-screen">
   <div class="sidebar">
     <button (click)="navigate('/friends')">Barátlista</button>
+    <button (click)="navigate('/user-profile')">Profil</button>
+    <button type="reset" (click)="logout()">Kilépés</button>
+  </div>
+  <div class="posts">
     <div class="create-post">
       <form class="create-post" [formGroup]="createPostForm" (ngSubmit)="createPost()">
         <div>
-          <label for="postName">Poszt név:</label>
+          <label for="postName">Poszt fejléc:</label>
         </div>
         <div>
           <input id="postName" required formControlName="postHeader" type="text" name="postName"
@@ -23,7 +27,7 @@
         </div>
       </form>
     </div>
-  </div>
 
-  <app-posts></app-posts>
+    <app-posts></app-posts>
+  </div>
 </div>

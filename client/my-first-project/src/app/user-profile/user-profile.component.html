@@ -1,0 +1,19 @@
+<div class="profile-page">
+  <form (ngSubmit)="onSubmit()" #profileForm="ngForm" class="profile-form">
+    <mat-label>Leírás:</mat-label>
+    <mat-form-field class="description-field">
+      <textarea matInput id="description" name="description" [(ngModel)]="userProfile.description"></textarea>
+    </mat-form-field>
+
+    <mat-label>Profil kép:</mat-label>
+    <mat-form-field class="picture-field">
+      <input type="file" id="profilePicture" name="profilePicture" (change)="onFileSelected($event)">
+      <mat-icon matSuffix>attach_file</mat-icon>
+      <img *ngIf="profileImage" [src]="profileImage" alt="Profile Picture" class="preview-image">
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" [disabled]="!profileForm.valid || uploading">Mentés</button>
+  </form>
+
+  <button mat-button class="back-button" (click)="navigate('/home')">Vissza a főoldalra</button>
+</div>

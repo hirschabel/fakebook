@@ -4,6 +4,7 @@ export interface IPost extends Document {
     author: mongoose.Types.ObjectId;
     postHeader: string;
     postText: string;
+    owner: string;
     createdAt: Date;
 }
 
@@ -11,6 +12,7 @@ const PostSchema: Schema<IPost> = new mongoose.Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     postHeader: { type: String, required: true },
     postText: { type: String, required: true },
+    owner: { type: String, required: true },
     createdAt: { type: Date, default: Date.now }
 });
 
