@@ -23,7 +23,7 @@
           <button mat-button>Like</button>
           <button mat-button (click)="startCommenting(post)">Komment írás</button>
           <button mat-button *ngIf="isAdmin" (click)="deletePost(post)">Törlés</button>
-          <button mat-button>Share</button>
+          <button mat-button>Megosztás</button>
         </mat-card-actions>
         <mat-card-footer>
           <p>Created At: {{ post.createdAt | date: 'y MMM d, HH:mm' }}</p>
