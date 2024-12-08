@@ -11,7 +11,7 @@ export class UserProfileService {
   constructor(private http: HttpClient) { }
 
   getUserProfile() {
-    return this.http.get<UserProfile>('http://localhost:5000/app/getUserProfile', {withCredentials: true});
+    return this.http.get<UserProfile>('http://172.100.0.10:5000/app/getUserProfile', {withCredentials: true});
   }
 
   updateUserProfile(userProfile: UserProfile) {
@@ -24,6 +24,6 @@ export class UserProfileService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/updateUserProfile', body, {headers: headers, withCredentials: true});
+    return this.http.post('http://172.100.0.10:5000/app/updateUserProfile', body, {headers: headers, withCredentials: true});
   }
 }

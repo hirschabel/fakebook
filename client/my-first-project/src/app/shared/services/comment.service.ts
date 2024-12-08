@@ -19,16 +19,16 @@ export class CommentService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/createComment', body, {headers: headers, withCredentials: true});
+    return this.http.post('http://172.100.0.10:5000/app/createComment', body, {headers: headers, withCredentials: true});
   }
 
   getAllCommentsForPost(post: Post) {
     const postId = (post as any)._id
-    return this.http.get<CommentForPost[]>(`http://localhost:5000/app/getAllComments?postId=${postId}`, {withCredentials: true});
+    return this.http.get<CommentForPost[]>(`http://172.100.0.10:5000/app/getAllComments?postId=${postId}`, {withCredentials: true});
   }
 
   delete(id: string) {
-    return this.http.delete('http://localhost:5000/app/deleteComment?id=' + id, {withCredentials: true});
+    return this.http.delete('http://172.100.0.10:5000/app/deleteComment?id=' + id, {withCredentials: true});
   }
 
 }

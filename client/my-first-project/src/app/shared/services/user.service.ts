@@ -10,14 +10,14 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<User[]>('http://localhost:5000/app/getAllUsers', {withCredentials: true});
+    return this.http.get<User[]>('http://172.100.0.10:5000/app/getAllUsers', {withCredentials: true});
   }
 
   getAllFriends() {
-    return this.http.get<User[]>('http://localhost:5000/app/getAllFriends', {withCredentials: true});
+    return this.http.get<User[]>('http://172.100.0.10:5000/app/getAllFriends', {withCredentials: true});
   }
 
   delete(id: string) {
-    return this.http.delete('http://localhost:5000/app/deleteUser?id=' + id, {withCredentials: true});
+    return this.http.delete('http://172.100.0.10:5000/app/deleteUser?id=' + id, {withCredentials: true});
   }
 }

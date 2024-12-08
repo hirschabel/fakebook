@@ -44,7 +44,7 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/login', body, {headers: headers, withCredentials: true})
+    return this.http.post('http://172.100.0.10:5000/app/login', body, {headers: headers, withCredentials: true})
     .pipe(tap(user => {
       if (user) {
         this.currentUserSubject.next(user as User);
@@ -65,7 +65,7 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/register', body, {headers: headers});
+    return this.http.post('http://172.100.0.10:5000/app/register', body, {headers: headers});
   }
 
   registerFriend(email: string) {
@@ -79,19 +79,19 @@ export class AuthService {
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
-      return this.http.post('http://localhost:5000/app/register-friend', body, { headers: headers, withCredentials: true });
+      return this.http.post('http://172.100.0.10:5000/app/register-friend', body, { headers: headers, withCredentials: true });
     //}
   }
 
   logout() {
-    return this.http.post('http://localhost:5000/app/logout', {}, {withCredentials: true, responseType: 'text'});
+    return this.http.post('http://172.100.0.10:5000/app/logout', {}, {withCredentials: true, responseType: 'text'});
   }
 
   checkAuth() {
-    return this.http.get<boolean>('http://localhost:5000/app/checkAuth', {withCredentials: true});
+    return this.http.get<boolean>('http://172.100.0.10:5000/app/checkAuth', {withCredentials: true});
   }
 
   isAdmin() {
-    return this.http.get<boolean>('http://localhost:5000/app/isAdmin', {withCredentials: true});
+    return this.http.get<boolean>('http://172.100.0.10:5000/app/isAdmin', {withCredentials: true});
   }
 }

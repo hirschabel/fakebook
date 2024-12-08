@@ -20,7 +20,7 @@ const Comment_1 = require("../model/Comment");
 function generateTestData() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect('mongodb://localhost:6000/fakebook').then((_) => {
+            yield mongoose_1.default.connect('mongodb://172.100.0.30:6000/fakebook').then((_) => {
                 console.log('Successfully connected to MongoDB.');
             }).catch(error => {
                 console.log(error);

@@ -18,18 +18,18 @@ export class PostService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5000/app/createPost', body, {headers: headers, withCredentials: true});
+    return this.http.post('http://172.100.0.10:5000/app/createPost', body, {headers: headers, withCredentials: true});
   }
 
   getOne(id: string) {
-    return this.http.delete('http://localhost:5000/app/getPost?id=' + id, {withCredentials: true});
+    return this.http.delete('http://172.100.0.10:5000/app/getPost?id=' + id, {withCredentials: true});
   }
 
   getAll() {
-    return this.http.get<Post[]>('http://localhost:5000/app/getAllPosts', {withCredentials: true});
+    return this.http.get<Post[]>('http://172.100.0.10:5000/app/getAllPosts', {withCredentials: true});
   }
 
   delete(id: string) {
-    return this.http.delete('http://localhost:5000/app/deletePost?id=' + id, {withCredentials: true});
+    return this.http.delete('http://172.100.0.10:5000/app/deletePost?id=' + id, {withCredentials: true});
   }
 }

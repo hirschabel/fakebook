@@ -14,7 +14,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const port = 5000;
-const dbUrl = 'mongodb://localhost:6000/fakebook';
+const dbUrl = 'mongodb://172.100.0.30:6000/fakebook';
 // mongodb connection
 mongoose_1.default.connect(dbUrl).then((_) => {
     console.log('Successfully connected to MongoDB.');
@@ -22,7 +22,7 @@ mongoose_1.default.connect(dbUrl).then((_) => {
     console.log(error);
     return;
 });
-const whitelist = ['*', 'http://localhost:4200'];
+const whitelist = ['*', 'http://172.100.0.20:4200'];
 const corsOptions = {
     origin: (origin, callback) => {
         if (whitelist.indexOf(origin) !== -1 || whitelist.includes('*')) {

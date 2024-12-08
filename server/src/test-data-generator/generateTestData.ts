@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 async function generateTestData() {
     try {
-        await mongoose.connect('mongodb://localhost:6000/fakebook').then((_) => {
+        await mongoose.connect('mongodb://172.100.0.30:6000/fakebook').then((_) => {
             console.log('Successfully connected to MongoDB.');
         }).catch(error => {
             console.log(error);

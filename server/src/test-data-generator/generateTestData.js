@@ -48,7 +48,7 @@ function generateTestData() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, , 6, 8]);
-                    return [4 /*yield*/, mongoose_1["default"].connect('mongodb://localhost:6000/fakebook').then(function (_) {
+                    return [4 /*yield*/, mongoose_1["default"].connect('mongodb://172.100.0.30:6000/fakebook').then(function (_) {
                             console.log('Successfully connected to MongoDB.');
                         })["catch"](function (error) {
                             console.log(error);
